@@ -1,0 +1,166 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
+:root{
+--main-color: blue;
+
+}
+
+*{
+font-family: "Roboto", sans-serif;
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+outline: none;
+border: none;
+font-style: normal; 
+text-decoration: none;
+text-transform:capitalize;
+transition: .2s linear;
+}
+
+body{
+background-color: #333;
+}
+
+.heading{
+text-align: center;
+padding-bottom: 2rem;
+text-transform: uppercase;
+color:#fff;
+font-size: 4rem;
+}
+
+.heading span{
+color:var(--main-color);
+text-transform: uppercase;
+}
+
+.header{
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+z-index: 10000;
+background: #333;
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 1.5rem 9%;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.header .logo{
+font-weight: bolder;
+color: #fff;
+font-size: 2.5rem;
+}
+
+.header .logo span{
+color: var(--main-color);
+}
+
+.header .navbar a{
+font-size: 1.7rem;
+color: #fff;
+margin-right: 2rem;
+}
+
+.header .navbar a:hover{
+color: var(--main-color);
+}
+@media (max-width:768px){
+
+#menu-bars{
+display: initial;
+}
+
+.header .navbar{
+position: absolute;
+top: 100%;
+left: 0;
+right: 0;
+border-top: .1rem solid #222;
+background: #333;
+clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+}
+
+.header .navbar a{
+display: flex;
+background: #222;
+border-radius: .5rem;
+padding:1.3rem;
+margin: 1.3rem;
+font-size: 2.5rem;
+}
+}
+
+#venue-form {
+    border: 2px solid #4ce3f7;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 400px;
+    margin: 120px auto 20px;
+    background-color: #0b151e;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  #venue-form input[type="text"],
+  #venue-form input[type="number"],
+  #venue-form input[type="file"] {
+    display: block;
+    width: calc(100% - 40px);
+    margin: 10px auto;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    background-color: #1a1a1a;
+    color: #fff;
+  }
+  
+  #venue-form input::placeholder {
+    color: #ccc;
+  }
+  
+  #venue-form button {
+    border: none;
+    color: #fff;
+    background-image: linear-gradient(30deg, #0400ff, #4ce3f7);
+    border-radius: 20px;
+    background-size: 100% auto;
+    font-family: inherit;
+    font-size: 17px;
+    padding: 12px 17px;
+    min-width: 120px;
+    position: relative;
+    cursor: pointer;
+    margin: 20px auto;
+    display: block;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    background: radial-gradient(ellipse at bottom, rgba(71, 81, 92, 1) 0%, rgba(11, 21, 30, 1) 45%);
+    color: rgba(255, 255, 255, 0.66);
+    transition: all 1s cubic-bezier(0.15, 0.83, 0.66, 1);
+  }
+  
+  #venue-form button::before {
+    content: '';
+    width: 70%;
+    height: 1px;
+    position: absolute;
+    bottom: 0;
+    left: 15%;
+    background: rgb(255, 255, 255);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0) 100%);
+    opacity: 0.2;
+    transition: all 1s cubic-bezier(0.15, 0.83, 0.66, 1);
+  }
+  
+  #venue-form button:hover {
+    color: rgba(255, 255, 255, 1);
+    transform: scale(1.1) translateY(-3px);
+  }
+  
+  #venue-form button:hover::before {
+    opacity: 1;
+  }
+  
