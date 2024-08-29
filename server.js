@@ -1,17 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+require('dotenv').config();  // Load environment variables from .env file
 const bcrypt = require('bcrypt');
-const { body, validationResult } = require('express-validator');
+const { validationResult } = require('express-validator');
 const session = require('express-session');
 const path = require('path');
-const multer  = require('multer');
-
-// Multer setup for file uploads
-const storage = multer.memoryStorage();
-
-//const upload = multer({ storage: storage });
-const upload = multer({ storage: multer.memoryStorage() });
+const multer = require('multer');
 
 const User = require('./models/userModel');
 const Venue = require('./models/venueModel');
@@ -28,10 +23,10 @@ app.use(bodyParser.json());
 
 // Configure express-session middleware
 app.use(session({
-    secret: 'your_secret_key',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false }
+    cookie: { secure: false } 
 }));
 
 // Serve static files from the "public" directory
@@ -39,21 +34,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Middleware to check if the user is authenticated
 function isAuthenticated(req, res, next) {
-    if (req.session.userId) {
+    console.log('Session:', req.session);
+    console.log('Session userId:', req.session.userId);
+
+    if (req.session && req.session.userId) {
         return next();
     }
-    res.redirect('/login.html');
+    res.status(401).json({ message: 'Unauthorized' });
 }
 
- // Validation middleware for signup route
- const validateSignup = [
-    body('name').notEmpty().withMessage('Your name is required'),
-    body('email').isEmail().withMessage('Invalid email address'),
-    body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long')
-];
-
 // Signup Route
-app.post('/signup', validateSignup, async (req, res) => {
+app.post('/signup', async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -87,39 +78,28 @@ app.post('/signup', validateSignup, async (req, res) => {
 // Login Route
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
-
-      // Basic input validation
-      if (!email || !password) {
-        return res.status(400).send({ error: 'Email and password are required' });
-    }
-
     try {
         const user = await User.findOne({ email });
-
+        console.log('User found:', user); // Log user object
         if (!user) {
-            return res.status(401).send({ error: 'Invalid email or password' });
+            return res.status(401).send({ error: 'Invalid email' });
         }
-
         const isMatch = await bcrypt.compare(password, user.password);
-
+        console.log('Password match:', isMatch); // Log result of password comparison
         if (!isMatch) {
-            return res.status(401).send({ error: 'Invalid email or password' });
+            return res.status(401).send({ error: 'Invalid password' });
         }
-
-        // Create a session for the user
         req.session.userId = user._id;
-
-        // On successful login, redirect to the index page
-        res.redirect('/home.html');
+        res.status(200).send({ message: 'Logged in successfully' });
     } catch (err) {
         console.error('Error during login:', err);
         res.status(500).send({ error: 'Internal server error' });
     }
 });
 
+
 // Route to serve login page if not authenticated
 app.get('/', (req, res) => {
-    // Check if user is logged in (based on session variable)
     if (req.session.userId) {
         res.sendFile(path.join(__dirname, 'public', 'home.html'));
     } else {
@@ -127,63 +107,31 @@ app.get('/', (req, res) => {
     }
 });
 
-
 // Route to serve home page, only accessible if authenticated
 app.get('/home', isAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'home.html'));
 });
 
-
-
-// Route for event
-
+// Event routes
 app.get('/event', async (req, res) => {
     try {
-        const events = await Event.find();
-        res.status(200).json(events);
+        const events = await Event.find().exec();
+        const eventWithImage = events.map(event => {
+            let eventImage = null;
+            if (event.image && event.image.data) {
+                eventImage = `data:${event.image.contentType};base64,${event.image.data.toString('base64')}`;
+            }
+            return { ...event.toObject(), image: eventImage };
+        });
+        res.status(200).json(eventWithImage);
     } catch (error) {
         console.error('Error fetching events:', error);
         res.status(500).json({ success: false, message: 'Error fetching events', error });
     }
 });
 
-
-
-
-// POST route for creating an event
-app.post('/event', upload.single('eventImage'), async (req, res) => {
-    const { eventName, eventLocation, eventDate, eventDescription } = req.body;
-    const eventImage = req.file;
-  
-    if (!eventName || !eventLocation || !eventDescription) {
-      return res.status(400).json({ message: 'All event fields are required' });
-    }
-  
-    const eventData = {
-      name: eventName,
-      location: eventLocation,
-      date: new Date(eventDate),
-      description: eventDescription,
-    };
-  
-    if (eventImage) {
-      eventData.image = {
-        data: eventImage.buffer,
-        contentType: eventImage.mimetype,
-      };
-    }
-  
-    try {
-      const event = new Event(eventData);
-      event.save();
-      res.status(201).json({ message: 'Event created successfully' });
-    } catch (error) {
-      res.status(500).json({ message: 'Error creating event', error });
-    }
-  });
-    
-  // Route to get all venues
-  app.get('/venue', async (req, res) => {
+// Route to get all venues
+app.get('/venue', async (req, res) => {
     try {
         const venues = await Venue.find().exec();
         const venuesWithImageUrls = venues.map((venue) => {
@@ -199,13 +147,30 @@ app.post('/event', upload.single('eventImage'), async (req, res) => {
     }
 });
 
+app.get('/booked-venues', async (req, res) => {
+    try {
+        const { date } = req.query;
+        console.log('Received date:', date);
 
-  app.post('/venue', upload.single('image'), async (req, res) => {
+        if (!date) {
+            return res.status(400).json({ error: 'Date is required' });
+        }
+
+        const bookedVenues = await Event.find({ date }).distinct('location');
+        res.json(bookedVenues);
+    } catch (error) {
+        console.error('Error fetching booked venues:', error);
+        res.status(500).json({ error: 'Failed to fetch booked venues' });
+    }
+});
+
+// Route to create a venue
+app.post('/venue', multer().single('image'), async (req, res) => {
     const { name, location, description, capacity } = req.body;
-    const { buffer, mimetype } = req.file;
     const image = req.file;
 
-    console.log("Received payload :", { name, location, capacity, image });
+    console.log('Received payload:', req.body);
+    console.log('Received file:', req.file);
 
     if (!name || !location || !image || !capacity) {
         return res.status(400).json({ message: 'Please provide all required fields' });
@@ -215,7 +180,7 @@ app.post('/event', upload.single('eventImage'), async (req, res) => {
         name,
         location,
         image: {
-          data: image.buffer,
+            data: image.buffer,
             contentType: image.mimetype,
         },
         capacity
@@ -226,28 +191,43 @@ app.post('/event', upload.single('eventImage'), async (req, res) => {
         await venue.save();
         res.status(201).json({ message: 'Venue created successfully' });
     } catch (error) {
-        console.error(error);
+        console.error('Error creating venue:', error);
         res.status(500).json({ message: 'Error creating venue', error: error.message });
     }
 });
 
-//tickets
-app.get('/tickets', async (req, res) => {
+// Tickets routes
+app.get('/tickets', isAuthenticated, async (req, res) => {
     try {
-        const tickets = await Ticket.find(); // Assuming Ticket model has a find method
-        res.status(200).json(tickets);
+        const tickets = await Ticket.find({ userId: req.session.userId });
+        res.json(tickets);
     } catch (error) {
-        console.error('Error fetching tickets:', error.message);
-        res.status(500).json({ message: "Server Error" });
+        console.error('Error fetching tickets:', error);
+        if (!res.headersSent) {
+            res.status(500).json({ error: 'Server error' });
+        }
     }
 });
 
-const ticketPrices = {
-    VIP: 1000,
-    General: 500,
-    Student: 100
-};
-app.post('/tickets', async (req, res) => {
+app.get('/tickets/:ticketId', isAuthenticated, async (req, res) => {
+    try {
+        const ticket = await Ticket.findById(req.params.ticketId);
+        if (!ticket) {
+            return res.status(404).json({ error: 'Ticket not found' });
+        }
+
+        if (ticket.userId.toString() !== req.session.userId) {
+            return res.status(403).json({ error: 'Unauthorized access' });
+        }
+
+        res.json(ticket);
+    } catch (error) {
+        console.error(`Error fetching ticket ${req.params.ticketId}:`, error);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+app.post('/tickets', isAuthenticated, async (req, res) => {
     try {
         const { name, email, quantity, ticketType } = req.body;
 
@@ -276,10 +256,12 @@ app.post('/tickets', async (req, res) => {
             email,
             quantity,
             ticketType,
-            price: ticketPrices[ticketType]
+            price: ticketPrices[ticketType],
+            userId: req.session.userId
         };
 
         const ticket = await Ticket.create(ticketData);
+        console.log('Ticket created:', ticket);
         res.status(201).json(ticket);
     } catch (error) {
         console.error('Error booking ticket:', error);
@@ -287,7 +269,7 @@ app.post('/tickets', async (req, res) => {
     }
 });
 
-
+// Route to create an organiser
 app.post('/organiser', async (req, res) => {
     try {
         const { organiserName, organiserEmail, organiserPhone } = req.body;
@@ -299,7 +281,7 @@ app.post('/organiser', async (req, res) => {
         }
 
         const newOrganiser = new Organiser({ organiserName, organiserEmail, organiserPhone });
-        newOrganiser.save();
+        await newOrganiser.save();
         res.status(201).json({ message: 'Organiser created successfully' });
     } catch (error) {
         console.error('Error saving organiser:', error);
@@ -307,30 +289,26 @@ app.post('/organiser', async (req, res) => {
     }
 });
 
+// Logout Route
 app.post('/logout', (req, res) => {
-    // Destroy the user session
     req.session.destroy((err) => {
-      if (err) {
-        console.error('Error destroying session:', err);
-        // Handle session destruction error (optional)
-        return res.status(500).send({ error: 'Internal server error' });
-      }
-  
-      // Redirect to login page with success message
-      const message = 'You have been successfully logged out.'; // Define your message
-      res.redirect(`/login.html?message=${encodeURIComponent(message)}`);
-    });
-  });
-  
- 
+        if (err) {
+            console.error('Error destroying session:', err);
+            return res.status(500).send({ error: 'Internal server error' });
+        }
 
-mongoose.connect('mongodb+srv://admin:UWN4O8iFRgF5izhH@totalevents.00yxzdo.mongodb.net/totalevent?retryWrites=true&w=majority')
+        res.redirect('/login.html?message=' + encodeURIComponent('You have been successfully logged out.'));
+    });
+});
+
+// Connect to MongoDB and start server
+mongoose.connect(process.env.MONGO_URI)
     .then(() => {
         app.listen(port, () => {
-            console.log('Server is running on port 3000');
+            console.log(`Server is running on port ${port}`);
         });
         console.log('Connected to database');
-    }).catch((error) => {
-        console.log(error);
+    })
+    .catch((error) => {
+        console.error('Database connection error:', error);
     });
- 

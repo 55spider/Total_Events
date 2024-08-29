@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('venue-capacity').value = venueCapacity;
     }
 
-    const form = document.querySelector('#venue-hire-form');
+    const form  = document.querySelector('#venue-hire-form');
 
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 form.reset();
                 window.location.href = '/venue.html'; // Redirect to venues page
             } else {
-                alert('Error hiring venue');
+                alert('Failed to hire venue');
             }
         } catch (error) {
             console.error('Error:', error);

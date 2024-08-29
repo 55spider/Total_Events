@@ -20,10 +20,43 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function addTicketToDropdown(ticket) {
+        const ticketList = document.getElementById('ticketList');
         const ticketItem = document.createElement('div');
-        ticketItem.textContent = `${ticket.quantity} x ${ticket.ticketType} - ${ticket.email} - ${ticket.name}`;
+        ticketItem.className = 'ticket-item';
+    
+        // Creating a container for details
+        const ticketDetails = document.createElement('div');
+        ticketDetails.className = 'ticket-details';
+    
+        // Creating elements for each detail
+        const quantity = document.createElement('div');
+        quantity.className = 'ticket-detail';
+        quantity.textContent = `Quantity: ${ticket.quantity}`;
+        
+        const ticketType = document.createElement('div');
+        ticketType.className = 'ticket-detail';
+        ticketType.textContent = `Type: ${ticket.ticketType}`;
+    
+        const email = document.createElement('div');
+        email.className = 'ticket-detail';
+        email.textContent = `Email: ${ticket.email}`;
+        
+        const name = document.createElement('div');
+        name.className = 'ticket-detail';
+        name.textContent = `Name: ${ticket.name}`;
+    
+        // Append details to ticketDetails
+        ticketDetails.appendChild(quantity);
+        ticketDetails.appendChild(ticketType);
+        ticketDetails.appendChild(email);
+        ticketDetails.appendChild(name);
+    
+        // Append ticketDetails to ticketItem
+        ticketItem.appendChild(ticketDetails);
+    
         ticketList.appendChild(ticketItem);
     }
+    
 
     function validateForm(data) {
         const requiredFields = ['name', 'email', 'ticketType', 'quantity'];
@@ -40,6 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     ticketForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+
         const formData = new FormData(ticketForm);
         const data = {};
         formData.forEach((value, key) => data[key] = value);
@@ -54,7 +88,8 @@ document.addEventListener('DOMContentLoaded', function() {
             name: data.name,
             email: data.email,
             ticketType: data.ticketType,
-            quantity: data.quantity
+            quantity: data.quantity,
+            price: ticketPrices[data.ticketType]
         };
 
         try {
@@ -68,13 +103,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (response.ok) {
                 alert('Ticket booked successfully!');
-                addTicketToDropdown({
-                    name: data.name,
-                    email: data.email,
-                    ticketType: data.ticketType,
-                    quantity: data.quantity
-                });
+                addTicketToDropdown(ticketData);
                 ticketForm.reset();
+                window.location.href = 'event.html';
                 totalPriceDiv.textContent = 'Total Price: $0';
             } else {
                 const errorData = await response.json();
@@ -87,33 +118,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    const ticketsDropdown = document.querySelector('.tickets-dropdown');
-    const dropbtn = ticketsDropdown.querySelector('.dropbtn');
-    const dropdownContent = ticketsDropdown.querySelector('.dropdown-content');
-
-    ticketsDropdown.addEventListener('click', function(event) {
-        if (event.target === dropbtn) {
-            dropdownContent.classList.toggle('show');
-        } else {
-            dropdownContent.classList.remove('show');
-        }
-    });
-
     async function fetchTickets() {
         try {
-            const response = await fetch('/tickets');
+            const response = await fetch('/tickets', {
+                method: 'GET',
+            });
             if (!response.ok) {
                 throw new Error('Failed to fetch tickets');
             }
             const tickets = await response.json();
 
-            const ticketList = document.getElementById('ticket-list');
-            ticketList.innerHTML = '';
+            ticketList.innerHTML = ''; // Clear existing tickets
 
             tickets.forEach(ticket => {
                 const ticketElement = document.createElement('a');
                 ticketElement.href = `ticket.html?id=${ticket.id}`;
-                ticketElement.textContent = `${ticket.ticketType}  Ticket for ${ticket.name} (${ticket.quantity})`;
+                ticketElement.textContent = `Ticket for ${ticket.name} (${ticket.ticketType}, ${ticket.quantity})`;
                 ticketList.appendChild(ticketElement);
             });
         } catch (error) {
@@ -121,5 +141,5 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    window.onload = fetchTickets;
+    fetchTickets();
 });

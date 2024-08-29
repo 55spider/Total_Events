@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css\organiser.css">
+    <link rel="stylesheet" href="css/organiser.css">
     <title>Organisers</title>
 </head>
 <body>
@@ -18,6 +18,7 @@
               <div class="dropdown-content" id="ticket-list">
                   <!-- Purchased tickets will be appended here -->
               </div>
+            </div>
             <a href="#gallery">Gallery</a>
             <a href="#reviews">Reviews</a>
         </nav>
@@ -26,13 +27,13 @@
     <section class="form-container">
       <h2>Organiser Form</h2>
       <form id="organiser-form" class="form" enctype="multipart/form-data">
-          <div class="form-group" name = "organiser">
+          <div class="form-group" name="organiser">
             <h2>Organiser Details</h2>
               <label for="organiser-name">Organiser Name</label>
               <input type="text" id="organiser-name" name="organiserName" required>
           </div>
           <div class="form-group">
-              <label for="organiser-email">Email</label>
+              <label for="organiser-email">Organiser Email</label>
               <input type="email" id="organiser-email" name="organiserEmail" required>
           </div>
           <div class="form-group">
@@ -40,28 +41,31 @@
               <input type="number" id="organiser-phone" name="organiserPhone" required>
           </div>
 
-          <div class="form-group" name = "event">
+          <div class="form-group" name="event">
             <h2>Event Details</h2>
               <label for="event-name">Event Name</label>
               <input type="text" id="event-name" name="eventName" required>
           
-            <label for="event-location">Event Location</label>
-            <input type="text" id="event-location" name="eventLocation" required>
-        
-          <label for="event-image">Event image</label>
-          <input type="file" id="event-image" name="eventImage" accept="image/*" >
+              <label for="event-location">Event Location</label>
+              <select id="event-location" name="eventLocation" required>
+                  
+              </select>
+              
+              <label for="event-image">Event image</label>
+              <input type="file" id="event-image" name="eventImage" accept="image/*" >
        
-          <label for="event-date">Event Date</label>
-          <input type="date" id="event-date" name="eventDate">
+              <label for="event-date">Event Date</label>
+              <input type="date" id="event-date" name="eventDate">
       
               <label for="event-description">Event Description</label>
               <textarea id="event-description" name="eventDescription" rows="5" required></textarea>
           </div>
           
-            <button type="submit">Create Organiser and Event</button>
-        
+          <button type="submit">Create Organiser and Event</button>
       </form>
   </section>
+
   <script src="js/organiser.js"></script>
+  <script src="js/event.js"></script>
 </body>
 </html>

@@ -12,7 +12,8 @@ const ticketSchema = mongoose.Schema(
 
       email:{
         type:String,
-        required: true
+        required: true,
+        unique: true
         },
         
         ticketType: {
@@ -31,7 +32,11 @@ const ticketSchema = mongoose.Schema(
             required: true
         },
 
-        
+        userId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User', // Reference to the User model
+          required: true
+      }
 
     }
 );

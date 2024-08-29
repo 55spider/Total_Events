@@ -1,173 +1,161 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
-
-:root {
-    --main-color: blue;
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
-* {
-    font-family: "Roboto", sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    outline: none;
-    border: none;
-    font-style: normal;
-    text-decoration: none;
-    text-transform: capitalize;
-    transition: .2s linear;
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 75px;
+  font-size: 14px;
 }
 
 body {
-    background-color: #333;
-    color: #fff;
+  background-color: #121212;
+  color: #e0e0e0;
+  line-height: 1.6;
 }
 
-.heading {
-    text-align: center;
-    padding-bottom: 2rem;
-    text-transform: uppercase;
-    color: #fff;
-    font-size: 4rem;
-}
-
-.heading span {
-    color: var(--main-color);
-    text-transform: uppercase;
-}
-
+/* Header */
 .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 10000;
-    background: #333;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.5rem 9%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 100px;
+  background: #333;
+  color: #fff;
 }
 
-.header .logo {
-    font-weight: bolder;
-    color: #fff;
-    font-size: 2.5rem;
+.logo {
+  font-size: 24px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: bold;
+  color: #fff;
 }
 
-.header .logo span {
-    color: var(--main-color);
+.logo span {
+  color: #e70d0d;
 }
 
-.header .navbar {
-    display: flex;
-    align-items: center;
+.navbar {
+  display: flex;
+  align-items: center;
 }
 
-.header .navbar a,
-.header .navbar .tickets-dropdown {
-    font-size: 1.7rem;
-    color: #fff;
-    margin-right: 2rem;
-    transition: color .2s;
-    position: relative;
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 20px;
+  margin: 0 5px;
+  transition: background 0.3s, color 0.3s;
 }
 
-.header .navbar a:hover,
-.header .navbar .tickets-dropdown:hover > a {
-    color: var(--main-color);
+.navbar a:hover {
+  background: #e74c3c;
+  outline: 2px solid #e74c3c;
+  outline-offset: 4px;
 }
 
+/* Ticket Form Container */
 .ticket-form-container {
-    margin: 150px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    text-align: center;
-    max-width: 400px; /* Set a maximum width for the form */
+  margin: 100px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+  max-width: 400px; /* Set a maximum width for the form */
 }
 
 .ticket-form label {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: bold;
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
 }
 
 .ticket-form input[type="text"],
 .ticket-form input[type="number"],
 .ticket-form input[type="email"],
 .ticket-form select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 10px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
 
 .ticket-form button[type="submit"] {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .ticket-form button[type="submit"]:hover {
-    background-color: #45a049;
+  background-color: #45a049;
 }
 
 .total-price {
-    margin-top: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #fff;
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
 }
 
+/* Dropdown container */
 .tickets-dropdown {
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 
-.tickets-dropdown a {
-    text-decoration: none;
-    color: inherit;
-    padding: 15px 16px;
-    display: inline-block;
-    font-size: 1.7rem;
-    font-weight: 500;
-}
-
-.tickets-dropdown a:hover,
-.dropdown-content a:hover {
- 
-    border-radius: 5px;
-    transition: background-color .2s;
-    color: #fff;
-}
-
+/* Dropdown content */
 .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #333;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-    border-radius: 5px; /* Optional: for rounded corners */
+  display: none; /* Hidden by default */
+  position: absolute;
+  background-color: #665b5b;
+  color: #0c0c0c;
+  box-shadow: 0 8px 16px rgba(56, 51, 51, 0.2);
+  min-width: 300px; /* Adjust to your content */
+  z-index: 1;
+  border-radius: 5px;
+  margin-top: 15px; /* Space between trigger and dropdown */
+  padding: 12px 12px; /* Reset default padding */ 
 }
 
-.dropdown-content a {
-    color: #fff;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    border-bottom: 1px solid #444; /* Add border to create partitions */
-}
-
-.dropdown-content a:last-child {
-    border-bottom: none; /* Remove border for the last item */
-}
-
+/* Show dropdown content on hover of the dropdown container */
 .tickets-dropdown:hover .dropdown-content {
-    display: block;
+  display: block;
+}
+
+/* Ticket items container */
+.ticket-item {
+  display: flex;
+  flex-direction: row; /* Align details horizontally */
+  padding: 10px;
+  border-bottom: 1px solid #e0e0e0; /* Lighter border color */
+  align-items: center; /* Center items vertically */
+  justify-content: space-between; /* Distribute items evenly */
+}
+
+/* Hover effect for each ticket item */
+.ticket-item:hover {
+  background-color: #2b2727; /* Lighter background on hover */
+  cursor: pointer; /* Indicate clickability */
+}
+
+/* Ticket details styling */
+.ticket-detail {
+  font-size: 1.8rem;
+  color: #333;
+  margin-right: 10px; /* Space between details */
+  
+}
+
+/* Remove border from the last item */
+.dropdown-content .ticket-item:last-child {
+  border-bottom: none;
 }

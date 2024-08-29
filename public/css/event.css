@@ -1,192 +1,164 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
-
-:root {
-    --main-color: #2196f3; 
-}
-
+/* General Reset */
 * {
-    font-family: "Roboto", sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    outline: none;
-    border: none;
-    font-style: normal;
-    text-decoration: none;
-    text-transform: capitalize;
-    transition: .2s linear;
-}
-
-body {
-    background-color: #333;
-    color: #fff; /* Ensure text is visible against dark background */
-}
-
-.header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 10000;
-    background: #333;
+    font-family: Arial, sans-serif;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 75px;
+    font-size: 14px;
+  }
+  
+  body {
+    background-color: #121212;
+    color: #e0e0e0;
+    line-height: 1.6;
+  }
+  
+  .header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: .5rem 9%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.header .logo {
-    font-weight: bolder;
+    align-items: center;
+    padding: 20px 100px;
+    background: #333;
     color: #fff;
-    font-size: 2.5rem;
-}
-
-.header .logo span {
-    color: var(--main-color);
-}
-
-.header .navbar {
+  }
+  
+  .logo {
+    font-size: 24px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    color: #fff;
+  }
+  
+  .logo span {
+    color: #e70d0d;
+  }
+  
+  .navbar {
     display: flex;
     align-items: center;
-}
-
-
-.header .navbar a,
-.header .navbar .tickets-dropdown {
-    font-size: 1.7rem;
+  }
+  
+  .navbar a {
     color: #fff;
-    margin-right: 2rem;
-    transition: color .2s;
-    position: relative;
-}
-
-.header .navbar a:hover,
-.header .navbar .tickets-dropdown:hover > a {
-    color: var(--main-color);
-}
-
-.tickets-dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.tickets-dropdown a {
     text-decoration: none;
-    color: inherit;
-    padding: 15px 16px;
-    display: inline-block;
-    font-size: 1.7rem;
-    font-weight: 500;
-}
-
-.tickets-dropdown a:hover,
-.dropdown-content a:hover {
- 
-    border-radius: 5px;
-    transition: background-color .2s;
-    color: #fff;
-}
-
-.dropdown-content {
+    padding: 10px 20px;
+    margin: 0 5px;
+    transition: background 0.3s, color 0.3s;
+  }
+  
+  .navbar a:hover {
+    background: #e74c3c;
+  outline: 2px solid #e74c3c;
+  outline-offset: 4px;
+  }
+  
+  .tickets-dropdown {
+    position: relative;
+  }
+  
+  .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #333;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-    border-radius: 5px; /* Optional: for rounded corners */
-}
-
-.dropdown-content a {
+    top: 100%;
+    left: 0;
+    background: #333;
     color: #fff;
-    padding: 12px 16px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    padding: 10px 20px;
+    display: block;
+    white-space: nowrap;
+    color: #fff;
     text-decoration: none;
+  }
+  
+  .dropdown-content a:hover {
+    background: #e74c3c;
+  }
+  
+  .tickets-dropdown:hover .dropdown-content {
     display: block;
-    border-bottom: 1px solid #444; /* Add border to create partitions */
-}
-
-.dropdown-content a:last-child {
-    border-bottom: none; /* Remove border for the last item */
-}
-
-.tickets-dropdown:hover .dropdown-content {
-    display: block;
-}
-
+  }
+  
 .events {
     text-align: center;
-    padding: 100px 20px; /* Ensure content is not hidden behind the fixed header */
+    padding: 30px 20px; /* Ensure content is not hidden behind the fixed header */
 }
 
 .heading {
     font-size: 36px;
     margin-top: 20px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    text-align: center; 
+    color: #e0e0e0;
 }
 
 .heading span {
     color: #f44336;
 }
 
-hr{
-    width: 100%;
-    height: 1px;
-    background-color: #ddd;
-    border: none;
+/* Styles for the container holding all event boxes */
+.box-container {
+  display: flex; /* Arrange boxes horizontally */
+  flex-wrap: wrap; /* Allow boxes to wrap to next line if needed */
+  gap: 20px; /* Spacing between boxes */
+  margin: 20px auto; /* Center the container horizontally */
+  max-width: 300px; /* Set a maximum width for responsiveness */
 }
 
 .box {
-    width: 30%;
-    margin: 70px 20px;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    text-align: center;
-    box-shadow: 0 0 5px #ddd;
-    transition: background-color .3s, transform .3s; /* Added smooth transition */
-}
-
-.box i {
-    font-size: 36px;
-    margin-bottom: 10px;
-}
-
-.box img {
-    width: 150px;
-    height: 150px;
-    margin-bottom: 10px;
-    border-radius: 20%;
-    box-shadow: 0 0 5px #ddd;
+  background-color:transparent;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  overflow: hidden; /* Clip overflowing content */
+  transition: all 0.3s ease-in-out; /* Add smooth transitions */
+  width: calc(33% - 20px); /* Set box width based on container and gap */
+  flex-grow: 1; /* Allow boxes to expand to fill remaining space */ /* Optional: For even distribution */
 }
 
 .box:hover {
-    background-color: #444; /* Changed to a darker shade for better contrast */
-    transform: scale(1.05); /* Added a subtle scaling effect */
-    cursor: pointer;
+  transform: scale(1.02); /* Slight zoom on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
 }
 
-.box-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center; /* Center the boxes */
+.box a {
+  text-decoration: none;
+  color: #333; /* Text color */
+  padding: 20px; /* Padding inside the box */
+  display: block; /* Makes the entire box clickable */
+}
+
+.box img {
+  width: 100%; /* Set full width for image */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Crop image to fit without distortion */
+  display: block; /* Make image clickable if it's part of the link */
 }
 
 .box h3 {
-    margin-bottom: 10px;
+  margin-top: 0; /* Remove top margin */
+  font-size: 1.2rem; /* Adjust heading size */
+  font-weight: bold;
+  margin-bottom: 10px; /* Add spacing after heading */
 }
 
 .box p {
-    font-size: 14px;
-    line-height: 1.5;
-    margin-bottom: 10px;
-    color: #ccc; /* Lightened the text color for better readability */
+  margin-bottom: 15px; /* Add spacing after description */
 }
 
-.date {
-    font-style: italic;
-    margin-top: 15px;
-    font-size: 20px;
-    color: #00acca;
+.box .date {
+  font-size: 0.9rem; /* Adjust date size */
+  color: gray;
 }
 
 .btn {

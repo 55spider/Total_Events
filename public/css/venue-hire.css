@@ -1,103 +1,94 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
-:root{
---main-color: blue;
-
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
-*{
-font-family: "Roboto", sans-serif;
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-outline: none;
-border: none;
-font-style: normal; 
-text-decoration: none;
-text-transform:capitalize;
-transition: .2s linear;
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 75px;
+  font-size: 14px;
 }
 
-body{
-background-color: #333;
+body {
+  background-color: #121212;
+  color: #e0e0e0;
+  line-height: 1.6;
 }
 
-.heading{
-text-align: center;
-padding-bottom: 2rem;
-text-transform: uppercase;
-color:#fff;
-font-size: 4rem;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 100px;
+  background: #333;
+  color: #fff;
 }
 
-.heading span{
-color:var(--main-color);
-text-transform: uppercase;
+.logo {
+  font-size: 24px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: bold;
+  color: #fff;
 }
 
-.header{
-position: fixed;
-top: 0;
-left: 0;
-right: 0;
-z-index: 10000;
-background: #333;
-display: flex;
-align-items: center;
-justify-content: space-between;
-padding: 1.5rem 9%;
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+.logo span {
+  color: #e70d0d;
 }
 
-.header .logo{
-font-weight: bolder;
-color: #fff;
-font-size: 2.5rem;
+.navbar {
+  display: flex;
+  align-items: center;
 }
 
-.header .logo span{
-color: var(--main-color);
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 20px;
+  margin: 0 5px;
+  transition: background 0.3s, color 0.3s;
 }
 
-.header .navbar a{
-font-size: 1.7rem;
-color: #fff;
-margin-right: 2rem;
+.navbar a:hover {
+  background: #e74c3c;
+  outline: 2px solid #e74c3c;
+  outline-offset: 4px;
 }
 
-.header .navbar a:hover{
-color: var(--main-color);
-}
-@media (max-width:768px){
-
-#menu-bars{
-display: initial;
+.tickets-dropdown {
+  position: relative;
 }
 
-.header .navbar{
-position: absolute;
-top: 100%;
-left: 0;
-right: 0;
-border-top: .1rem solid #222;
-background: #333;
-clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #333;
+  color: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }
 
-.header .navbar a{
-display: flex;
-background: #222;
-border-radius: .5rem;
-padding:1.3rem;
-margin: 1.3rem;
-font-size: 2.5rem;
-}
+.dropdown-content a {
+  padding: 10px 20px;
+  display: block;
+  white-space: nowrap;
+  color: #fff;
+  text-decoration: none;
 }
 
+.dropdown-content a:hover {
+  background: #e74c3c;
+}
 
-.header .navbar a:hover{
-    color: var(--main-color);
-  }
+.tickets-dropdown:hover .dropdown-content {
+  display: block;
+}
 
   #venue-hire-form {
     margin: 130px auto; /* Add some margin for spacing */

@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize Swiper with coverflow effect
     var swiper = new Swiper(".mySwiper", {
         effect: "coverflow",
         centeredSlides: true,
@@ -21,7 +22,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const container = document.getElementById('container');
+    // Mobile menu toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    }
+
+    // Authentication form handling
     const signUpButton = document.getElementById('register');
     const signInButton = document.getElementById('login');
     const signUpToggleButton = document.getElementById('register-toggle');
@@ -30,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const signUpError = document.getElementById('signUpError');
     const logoutButton = document.getElementById('logout');
 
+    // Sign-up form submission
     if (signUpButton && signInButton && signUpToggleButton && signInToggleButton) {
         signUpButton.addEventListener('click', async () => {
             const name = document.getElementById('signUpName').value.trim();
@@ -71,6 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        // Sign-in form submission
         signInButton.addEventListener('click', async () => {
             const email = document.getElementById('signInEmail').value.trim();
             const password = document.getElementById('signInPassword').value.trim();
@@ -105,6 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Logout functionality
     if (logoutButton) {
         logoutButton.addEventListener('click', () => {
             fetch('/logout', { method: 'POST' })
@@ -122,32 +136,34 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Validation functions
     function validateLogin(email, password) {
         if (email === "" || password === "") {
-            console.log("Login validation failed: Empty email or password"); // Debugging log
+            console.log("Login validation failed: Empty email or password");
             return false;
         }
         if (password.length < 6) {
-            console.log("Login validation failed: Password length < 6"); // Debugging log
+            console.log("Login validation failed: Password length < 6");
             return false;
         }
-        console.log("Login validation passed"); // Debugging log
+        console.log("Login validation passed");
         return true;
     }
 
     function validateSignUp(name, email, password) {
         if (name === "" || email === "" || password === "") {
-            console.log("SignUp validation failed: Empty name, email, or password"); // Debugging log
+            console.log("SignUp validation failed: Empty name, email, or password");
             return false;
         }
         if (name.length < 2 || password.length < 6) {
-            console.log("SignUp validation failed: Invalid name length or password length"); // Debugging log
+            console.log("SignUp validation failed: Invalid name length or password length");
             return false;
         }
-        console.log("SignUp validation passed"); // Debugging log
+        console.log("SignUp validation passed");
         return true;
     }
 
+    // Dropdown functionality for tickets
     const ticketsDropdown = document.querySelector('.tickets-dropdown');
     if (ticketsDropdown) {
         const dropbtn = ticketsDropdown.querySelector('.dropbtn');

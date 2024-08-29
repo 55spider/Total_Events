@@ -9,24 +9,29 @@
     <link rel="stylesheet" href="css\style.css">
 </head>
 <body>
-<header class="header">
-    <a href="home.html" class="logo"><span>t</span>otal<span>e</span>vents</a>
-    <nav class="navbar">
-        <a href="home.html">Home</a>
-        <a href="event.html">Events</a>
-        <a href="venue.html">Venue</a>
-        <div class="tickets-dropdown">
-            <a href="ticket.html">Tickets</a>
-            <div class="dropdown-content" id="ticket-list">
-                <!-- Purchased tickets will be appended here -->
+    <header class="header">
+        <a href="home.html" class="logo"><span>t</span>otal<span>e</span>vents</a>
+        <nav class="navbar">
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <i class="fa fa-bars"></i> <!-- Menu icon -->
+            </button>
+            <div class="nav-links">
+                <a href="home.html">Home</a>
+                <a href="event.html">Events</a>
+                <a href="venue.html">Venue</a>
+                <div class="tickets-dropdown">
+                    <a href="ticket.html">Tickets</a>
+                    <div class="dropdown-content" id="ticket-list">
+                        <!-- Purchased tickets will be appended here -->
+                    </div>
+                </div>
+                <a href="#gallery">Gallery</a>
+                <a href="#reviews">Reviews</a>
+                <button id="logout" class="logout-button">Logout</button>
             </div>
-          
-        <a href="#gallery">Gallery</a>
-        <a href="#reviews">Reviews</a>
-        <button id="logout" class="logout-button">Logout</button>
-    </nav>
-</header>
-
+        </nav>
+    </header>
+    
 <section class="home" id="home">
 
     <div class="content">
@@ -96,8 +101,8 @@ Choose from a selection of venues that enhance the overall event experience.
             </div>
 
             <div class="content">
-                <h3>we are your go to event planners</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur reiciendis id voluptas assumenda labore deserunt nobis necessitatibus ex laborum illo! Hic voluptatibus veritatis impedit architecto sapiente, minus perspiciatis non veniam!</p>
+                <h3>We are your go to event planners</h3>
+                <p>Transform your vision into reality with our premier event planning services. Whether it's a corporate gala, a wedding, or an intimate gathering, we blend creativity with meticulous attention to detail to create unforgettable experiences.</p>
                 <a href="" class="btn">contact us</a>
             </div>
 
@@ -178,39 +183,34 @@ Choose from a selection of venues that enhance the overall event experience.
 
 <section class="review" id="review">
 
-    <h1 class="heading">Client <span> Reviews</span></h1>
-    <div class="review-slider swiper-container">
-        <div class="swiper-wrapper">
-
-            <div class="swiper-slide box">
+    <h1 class="heading"><span> Reviews </span></h1>
+    <div class="review-slider">
+        
+            <div class="box">
                 <i class="fa fa-quote-right"></i>
                 <div class="user">
                     <img src="https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=400">
                     <div class="user-info">
-                        <h3>john doe</h3>
+                        <h3>James Dove</h3>
                         <span>Happy Clients</span>
                     </div>
                 </div>
                 <p>Attending events through this system has been a game-changer for me. The variety of options, seamless ticketing, and incredible venues have made each experience a delight. Highly recommended!"</p>
             </div>
-
-        </div>
-
-        <div class="swiper-slide box">
+      
+        <div class="box">
             <i class="fa fa-quote-right"></i>
             <div class="user">
                 <img src="https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=400">
                 <div class="user-info">
                     <h3>Jane Doe</h3>
-                    <span>happy clients</span>
+                    <span>Happy Clients</span>
                 </div>
             </div>
             <p>"I couldn't be happier with the tickets I purchased through this platform. The process was smooth, and the event exceeded all my expectations. Looking forward to the next one!".</p>
         </div>
 
-    </div>
-
-    <div class="swiper-slide box">
+    <div class="box">
         <i class="fa fa-quote-right"></i>
         <div class="user">
             <img src="https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=400">
@@ -224,20 +224,62 @@ Choose from a selection of venues that enhance the overall event experience.
 
 </div>
 
-    </div>
 
 </section>
 
-
-
-
-
-
+<section class="contacts">
+    <div class="container">
+        <h1 class="heading">Contact Us</h1>
+        <div class="contact-info">
+            <div class="contact-item">
+                <i class="fa fa-phone"></i>
+                <div class="contact-details">
+                    <h3>Phone</h3>
+                    <p>(123) 456-7890</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <i class="fa fa-envelope"></i>
+                <div class="contact-details">
+                    <h3>Email</h3>
+                    <p>info@example.com</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <i class="fa fa-map-marker"></i>
+                <div class="contact-details">
+                    <h3>Address</h3>
+                    <p>1234 Street Name, City, Country</p>
+                </div>
+            </div>
+        </div>
 
 
 <footer>
-    <p>&copy; TOTAL EVENTS 2024</p>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h1>Total Events</h1>
+            </div>
+            <div class="footer-links">
+                <a href="#about">About Us</a>
+                <a href="#services">Services</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-social">
+                <a href="https://facebook.com" target="_blank"><i class="fa fa-facebook"></i></a>
+                <a href="https://twitter.com" target="_blank"><i class="fa fa-twitter"></i></a>
+                <a href="https://instagram.com" target="_blank"><i class="fa fa-instagram"></i></a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Your Company. All Rights Reserved.</p>
+            </div>
+        </div>
+    </div>
 </footer>
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/script.js"></script>
 </body>

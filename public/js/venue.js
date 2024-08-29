@@ -26,10 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Create the link element and wrap the venueBox
         const venueLink = document.createElement('a');
-        venueLink.href = `/venue-hire.html?venueId=${venue._id}`; // Replace with the actual URL for venue hire
+        venueLink.href = `/organiser.html?venueName=${encodeURIComponent(venue.name)}`;
         venueLink.appendChild(venueBox);
 
-        return venueLink; // Return the link element that wraps the venueBox
+        return venueLink;
     }
 
     function displayVenues(venues) {

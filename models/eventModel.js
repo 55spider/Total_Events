@@ -13,19 +13,22 @@ const eventSchema = mongoose.Schema(
             required:[true, "The event location is required"]
         },
 
-       
         image: {
-            type: Buffer,
-            contentType: String,
-            required: [true, "The event image is required"]
+            data: {
+                type: Buffer,
+                required: [true]
+            },
+            contentType: {
+                type: String,
+                required: [true]
+            }
         },
-
         description:{
             type:String,
             required:[true, "The event description is required"]
         },
-
-        date:{
+        
+               date:{
             type:Date,
             required:[true, "The event date is required"]
         }
