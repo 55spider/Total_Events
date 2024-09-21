@@ -25,47 +25,34 @@
     </header>
 
     <section class="form-container">
-      <h2>Organiser Form</h2>
-      <form id="organiser-form" class="form" enctype="multipart/form-data">
-          <div class="form-group" name="organiser">
+        <h1>Organiser and event-form</h1>
+        <hr>
+        <form id="organiserEvent-form">
             <h2>Organiser Details</h2>
-              <label for="organiser-name">Organiser Name</label>
-              <input type="text" id="organiser-name" name="organiserName" required>
-          </div>
-          <div class="form-group">
-              <label for="organiser-email">Organiser Email</label>
-              <input type="email" id="organiser-email" name="organiserEmail" required>
-          </div>
-          <div class="form-group">
-              <label for="organiser-phone">Phone Number</label>
-              <input type="number" id="organiser-phone" name="organiserPhone" required>
-          </div>
-
-          <div class="form-group" name="event">
+            <div class="form-group">
+            <input type="text" id="organiser-name" name="organiserName" placeholder="Organiser Name" required>
+            <input type="email" id="organiser-email" name="organiserEmail" placeholder="Organiser Email" required>
+            <input type="tel" id="organiser-phone" name="organiserPhone" placeholder="Organiser Phone" required>
+        
+        
+        <div id="event-form">
             <h2>Event Details</h2>
-              <label for="event-name">Event Name</label>
-              <input type="text" id="event-name" name="eventName" required>
-          
-              <label for="event-location">Event Location</label>
-              <select id="event-location" name="eventLocation" required>
-                  
-              </select>
-              
-              <label for="event-image">Event image</label>
-              <input type="file" id="event-image" name="eventImage" accept="image/*" >
-       
-              <label for="event-date">Event Date</label>
-              <input type="date" id="event-date" name="eventDate">
-      
-              <label for="event-description">Event Description</label>
-              <textarea id="event-description" name="eventDescription" rows="5" required></textarea>
-          </div>
-          
-          <button type="submit">Create Organiser and Event</button>
-      </form>
+            <input type="text" id="event-name" name="eventName" placeholder="Event Name" required>
+            <select id="event-location" name="eventLocation" required>
+                <!-- Options populated dynamically -->
+            </select>
+            <input type="file" id="event-image" name="eventImage" required>
+            <input type="date" id="event-date" name="eventDate" required>
+            <textarea id="event-description" name="eventDescription" placeholder="Event Description" required></textarea>
+            <button type="submit" id="submit-button">Submit Event</button>
+        </div>
+    </div>
+    </form>
+        
   </section>
 
   <script src="js/organiser.js"></script>
-  <script src="js/event.js"></script>
+
+
 </body>
 </html>

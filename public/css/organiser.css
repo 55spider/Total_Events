@@ -1,69 +1,70 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
+
 /* General Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
-  }
+    font-family: 'Roboto', sans-serif;
+}
   
-  html {
+html {
     scroll-behavior: smooth;
     scroll-padding-top: 75px;
     font-size: 14px;
-  }
+}
   
-  body {
+body {
     background-color: #121212;
     color: #e0e0e0;
     line-height: 1.6;
-  }
+}
   
-  .header {
+.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 100px;
     background: #333;
     color: #fff;
-  }
+}
   
-  .logo {
+.logo {
     font-size: 24px;
     text-transform: uppercase;
     text-decoration: none;
     font-weight: bold;
     color: #fff;
-  }
+}
   
-  .logo span {
+.logo span {
     color: #e70d0d;
-  }
+}
   
-  .navbar {
+.navbar {
     display: flex;
     align-items: center;
-  }
+}
   
-  .navbar a {
+.navbar a {
     color: #fff;
     text-decoration: none;
     padding: 10px 20px;
     margin: 0 5px;
     transition: background 0.3s, color 0.3s;
-  }
+}
   
-  .navbar a:hover {
+.navbar a:hover {
     background: #e74c3c;
-  outline: 2px solid #e74c3c;
-  outline-offset: 4px;
-  }
+    outline: 2px solid #e74c3c;
+    outline-offset: 4px;
+}
   
-  .tickets-dropdown {
+.tickets-dropdown {
     position: relative;
-  }
+}
   
-  .dropdown-content {
+.dropdown-content {
     display: none;
     position: absolute;
     top: 100%;
@@ -72,69 +73,129 @@
     color: #fff;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     z-index: 1;
-  }
+}
   
-  .dropdown-content a {
+.dropdown-content a {
     padding: 10px 20px;
     display: block;
     white-space: nowrap;
     color: #fff;
     text-decoration: none;
-  }
+}
   
-  .dropdown-content a:hover {
+.dropdown-content a:hover {
     background: #e74c3c;
-  }
+}
   
-  .tickets-dropdown:hover .dropdown-content {
+.tickets-dropdown:hover .dropdown-content {
     display: block;
-  }
+}
 
+/* Form Container Styling */
 .form-container {
-width: 700px; 
-height:fit-content;
-margin: 150px auto; 
-padding: 20px;
-border: 1px solid #ddd;
-border-radius: 50px;
-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 700px; 
+  margin: 80px auto; /* Adjusted top margin for better centering */
+  padding: 30px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #1e1e1e; /* Dark background to match the body */
 }
 
+/* Form Headers */
 .form-container h2 {
-text-align: center;
-margin-bottom: 20px;
+  text-align: left;
+  margin-bottom: 20px;
+  color: #fff; /* Ensures header color contrasts well */
 }
 
+.form-container h1 {
+  font-size: 36px; /* Adjust as needed */
+    font-weight: bold; /* Ensure text is bold enough for gradient visibility */
+    background: linear-gradient(to right, #fc0000, #8d746d); /* Gradient from red to yellow */
+    -webkit-background-clip: text; /* Clip background to text for WebKit browsers */
+    -moz-background-clip: text; /* For Firefox */
+    background-clip: text; /* Standard syntax */
+    color: transparent; /* Make the actual text color transparent */
+    text-align: center; /* Center align text */
+    margin-bottom: 20px; /* Adjust margin as needed */
+}
+
+/* Form Group Styling */
 .form-group {
-margin-bottom: 15px;
+  margin-bottom: 20px; /* Increased spacing between form groups */
 }
 
-.form-group label {
-display: block;
-margin-bottom: 5px;
-}
-
+/* Input and Textarea Styling */
 .form-group input,
+.form-group select,
 .form-group textarea {
-width: 100%;
-padding: 10px;
-border: 1px solid #ccc;
-border-radius: 3px;
+  width: 100%;
+  padding: 15px;
+  border: 1.3px solid #555; /* Darker border for better visibility */
+  border-radius: 5px; /* Rounded corners for inputs */
+  background: #333; /* Dark background for inputs */
+  color: #fff; /* White text color */
+  margin-bottom: 10px; /* Space between input fields */
 }
 
 .form-group textarea {
-height: 100px; /* Adjust height as needed */
+  height: 100px; /* Adjust height as needed */
+  resize: vertical; /* Allow vertical resizing only */
 }
 
+#event-form {
+  margin-top: 30px; /* Add a top margin to the second form */
+}
+
+select {
+  appearance: none; /* Hide default browser styling */
+  padding: 10px; /* Adjust padding as needed */
+  border: 1px solid #ccc; /* Border color */
+  border-radius: 5px; /* Rounded corners */
+  background: #fff; /* Background color */
+  color: #333; /* Text color */
+  cursor: pointer; /* Show pointer cursor */
+}
+
+select::-ms-expand { /* For IE */
+  display: none;
+}
+
+.select-arrow {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none; /* Prevent accidental clicks */
+}
+
+.select-arrow::after {
+  content: "\25BC"; /* Down arrow Unicode character */
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  font-size: 12px;
+  color: #333;
+}
+
+/* Button Styling */
 button[type="submit"] {
-    background-color: #4CAF50; /* Green */
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-  
-  button[type="submit"]:hover {
-    background-color: #45A049; /* Green shade */
-  }
+  background-color: #4CAF50; /* Green background */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px; /* Rounded corners for the button */
+  cursor: pointer;
+  font-size: 16px; /* Slightly larger font size for readability */
+}
+
+button[type="submit"]:hover {
+  background-color: #45A049; /* Darker green on hover */
+}
+
+/* Placeholder Styling */
+input::placeholder,
+textarea::placeholder {
+  color: #888; /* Light grey placeholder text */
+}

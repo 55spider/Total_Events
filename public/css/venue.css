@@ -94,19 +94,27 @@
     margin-top: 60px;
   }
 
+  .venues-list {
+    display: flex; /* Arrange boxes horizontally */
+  flex-wrap: wrap; /* Allow boxes to wrap to next line if needed */
+  justify-content: center; /* Center boxes horizontally */
+  align-items: flex-start; /* Align boxes vertically at the top */
+  margin: 20px auto; /* Center the container horizontally */
+  max-width: 300px; /* Set a maximum width for responsiveness */
+}
+
 .venue-box {
-    width: 180%;
-    margin: 70px 20px;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    text-align: center;
-    box-shadow: 0 0 5px #ddd;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-   
-    transition: transform 0.2s;
+  background-image: linear-gradient(to right, rgb(54, 51, 51), rgb(94, 94, 94));
+  width:fit-content(stretch);
+  display: inline-block;
+  padding: 15px; /* Add padding to all sides */
+  margin-right:20px;
+  margin-top: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1); /* Subtle shadow */
+  overflow: hidden; /* Clip overflowing content */
+  transition: all 0.3s ease-in-out; /* Add smooth transitions */
+  width: calc(30% - 40px); /* Set box width based on container and gap */
 }
 
 .venue-box:hover {
@@ -115,29 +123,25 @@
 }
 
 .venue-box img {
-    width: 150px;
-    height: 150px;
-    margin-bottom: 10px;
-    border-radius: 20%;
-    box-shadow: 0 0 5px #ddd;
+  width: 100%;
+  height: max-content; /* Maintain aspect ratio */
+  object-fit: cover; /* Crop image to fit without distortion */
+  border-radius: 5px 5px 0 0; /* Add rounded corners */
 }
 
 .venue-box h3 {
-    font-size: 24px;
-    margin-bottom: 10px;
+  margin: 0; /* Remove all margins */
+  font-size: 1.2rem; /* Adjust heading size */
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .venue-box p {
-    font-size: 16px;
-    line-height: 1.5;
+  margin-bottom: 15px; /* Add spacing after description */
+  font-size: 1.2rem;
 }
 
-#venues-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 20px;
-}
 
 .btn {
     position: absolute;
