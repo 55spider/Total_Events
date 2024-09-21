@@ -13,7 +13,6 @@ const Venue = require('./models/venueModel');
 const Ticket = require('./models/ticketModel');
 const Organiser = require('./models/organiserModel');
 const Event = require('./models/eventModel');
-/*const { eventNames } = require('process');*/
 
 const app = express();
 const port = process.env.PORT || 3000;
